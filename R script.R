@@ -3,10 +3,10 @@
 ## Load ggplot2 
 library(ggplot2)
 
-############# Figure 7 upper panel #################
+############# Figure 7 lower panel #################
 
 ## load the data
-res=read.csv('Figure_7_upper_panel_data.csv')
+res=read.csv('Figure_7_lower_panel_data.csv')
 
 ## replace NA values with 0
 res[is.na(res)]=0
