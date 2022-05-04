@@ -3,11 +3,10 @@
 ## Load ggplot2 
 library(ggplot2)
 
-
-############# Figure 6 upper panel, Non-fucosylation % #################
+############# Figure 6 lower panel, Non-fucosylation % #################
 
 ## load the data
-res=read.csv('Figure_6_upper_panel_non_fucosylation_data.csv')
+res=read.csv('Figure_6_lower_panel_non_fucosylation_data.csv')
 
 ## replace NA values with 0
 res[is.na(res)]=0
@@ -21,10 +20,10 @@ ggplot(data=subset.data.frame(res, dHex.count==0 &
   geom_vline(xintercept=1.5+c(0:7), linetype='dotted')+
   labs(y='Non-fucosylation %')
 
-############# Figure 6 upper panel, Sialylation % #################
+############# Figure 6 lower panel, Sialylation % #################
 
 ## load the data
-res=read.csv('Figure_6_upper_panel_sialylation_data.csv')
+res=read.csv('Figure_6_lower_panel_sialylation_data.csv')
 
 ## replace NA values with 0
 res[is.na(res)]=0

@@ -12,11 +12,11 @@ DROP TABLE IF EXISTS clinical_data;
 .import clinical_data.csv clinical_data
 
 
-## Generate the data for Figure 6 upper panel, Non-fucosylation %
+## Generate the data for Figure 6 lower panel, Non-fucosylation %
 
 .mode csv
 .headers on
-.output Figure_6_upper_panel_non_fucosylation_data.csv
+.output Figure_6_lower_panel_non_fucosylation_data.csv
 
 SELECT *
 
@@ -54,11 +54,11 @@ FROM
 
 
 
-## Generate the data for Figure 6 upper panel, Sialylation %
+## Generate the data for Figure 6 lower panel, Sialylation %
 
 .mode csv
 .headers on
-.output Figure_6_upper_panel_sialylation_data.csv
+.output Figure_6_lower_panel_sialylation_data.csv
 
 SELECT *
 
