@@ -3,10 +3,10 @@
 ## Load ggplot2 
 library(ggplot2)
 
-############# Figure 4 A ##########################
+############# Figure 4 C ##########################
 
 ## load the data
-res=read.csv('Figure_4_A_data.csv')
+res=read.csv('Figure_4_C_data.csv')
 
 ## visualize the result
 ggplot(res, aes(Sample, Intensity, 
@@ -16,13 +16,14 @@ ggplot(res, aes(Sample, Intensity,
   scale_x_discrete(limits=c('P1','P2','P3','P4','P5','P6',
                             'NP1','NP2','NP3','NP4'))+
   scale_fill_manual(values=c('grey67','slateblue',
-                             'lightskyblue','darkorange','yellow','magenta1'))
+                             'lightskyblue','darkorange',
+                             'yellow','magenta1', 'deepskyblue4', 'violet'))
 
 
-############# Figure 4 B ##########################
+############# Figure 4 D ##########################
 
 ## load the data
-res=read.csv('Figure_4_B_data.csv')
+res=read.csv('Figure_4_D_data.csv')
 
 ## visualize the result
 ggplot(res, aes(Sample, Intensity, 
@@ -31,7 +32,5 @@ ggplot(res, aes(Sample, Intensity,
   labs(y='Relative Intensity')+
   scale_x_discrete(limits=c('P1','P2','P3','P4','P5','P6',
                             'NP1','NP2','NP3','NP4'))+
-  scale_fill_manual(values=c('darkorange','yellow','magenta1'))
-
-
-
+  scale_fill_manual(values=c('darkorange','yellow','magenta1',
+                             'deepskyblue4'))

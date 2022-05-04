@@ -1,29 +1,27 @@
 ## Creat a databased called 'raw_data.db'
 .open raw_data.db
 
-## Import the glycan data 'Glycan_data.csv', clinical data 'clinical_data.csv'
+## Import the glycan data 'Glycan data.csv'
 
 DROP TABLE IF EXISTS glycan_data;
-DROP TABLE IF EXISTS clinical_data;
 
 .mode csv
 .import CVF_data.csv glycan_data
-.import clinical_data.csv clinical_data
 
-## Fucosylation analysis, Figure 4 A
+## Fucosylation analysis, Figure 4 C
 
 .headers on 
 .mode csv
-.output Figure_4_A_data.csv
+.output Figure_4_C_data.csv
 SELECT [Sample.name] Sample, [dHex.count] 'Fuc per glycan', SUM([Intensity]) Intensity
 FROM glycan_data
 GROUP BY [Sample.name], [dHex.count];
 
 
-## Sialylation analysis Figure 4 B
+## Sialylation analysis Figure 4 D
 .headers on 
 .mode csv
-.output Figure_4_B_data.csv
+.output Figure_4_D_data.csv
 SELECT [Sample.name] Sample, [NeuAc.count] 'NeuAc per glycan', SUM([Intensity]) Intensity
 FROM glycan_data
 GROUP BY [Sample.name], [NeuAc.count];
