@@ -3,12 +3,10 @@
 ## Load ggplot2 
 library(ggplot2)
 
-############# Figure 5 upper panel ##########################
+############# Figure 5 lower panel ##########################
 
 ## load the data
-res=read.csv('Figure_5_upper_panel_data.csv')
-
-## replace NA values with 0
+res=read.csv('Figure_5_lower_panel_data.csv')
 res[is.na(res)]=0
 
 ## Non-fucosylation %

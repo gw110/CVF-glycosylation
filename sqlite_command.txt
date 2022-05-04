@@ -11,11 +11,11 @@ DROP TABLE IF EXISTS clinical_data;
 .import clinical_data.csv clinical_data
 
 
-## Generate the data for Figure 5 upper panel
+## Generate the data for Figure 5 lower panel
 
 .mode csv
 .headers on
-.output Figure_5_upper_panel_data.csv
+.output Figure_5_lower_panel_data.csv
 
 SELECT *, 
 	CASE
@@ -54,7 +54,4 @@ FROM
 			
 		ON total.[Sample.name]=clinical_data.[VMET.2.number]);
 	
-
-
-
 
