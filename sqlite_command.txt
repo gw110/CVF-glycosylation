@@ -12,38 +12,41 @@ DROP TABLE IF EXISTS clinical_data;
 .import clinical_data.csv clinical_data
 
 
-## Generate the data for Figure 7 lower panel
+## Generate the data for Figure 8 upper panel, Non-fucosylation %
 
 .mode csv
 .headers on
-.output Figure_7_lower_panel_data.csv
+.output Figure_8_upper_panel_data.csv
 
 SELECT *
 
 FROM
-	(SELECT frame.*, total.Total_Intensity, dHex.dHex_Intensity, clinical_data.*
+	(SELECT frame.*, dHex_total.Total_Intensity, NeuAc.NeuAc_Intensity, clinical_data.*
 	 
 	 FROM 	
-			(SELECT DISTINCT a.[Sample.name], b.[dHex.count], a.[Sample.name] || b.[dHex.count] Sample_dHex_count
+			(SELECT DISTINCT 
+			      a.[Sample.name], b.[dHex.count],
+			      a.[Sample.name] || b.[dHex.count] sample_dHex
 	 	 	 FROM glycan_data a
 	 	 	 CROSS JOIN glycan_data b) frame
 	 	
-	 	INNER JOIN	 
+	 	LEFT JOIN	 
 	 	 	 
-			(SELECT [Sample.name], SUM(Intensity) Total_Intensity
+			(SELECT [Sample.name] ||[dHex.count] sample_dHex, SUM(Intensity) Total_Intensity
 	 	 	 FROM glycan_data
-	 	 	 GROUP BY [Sample.name]) total
+	 	 	 GROUP BY sample_dHex) dHex_total
 	 	
-	 	ON 	frame.[Sample.name]=total.[Sample.name]
+	 	ON 	frame.sample_dHex=dHex_total.sample_dHex
 
 		LEFT JOIN 
 		
-			(SELECT [Sample.name], [dHex.count], SUM(Intensity) dHex_Intensity, 
-		 	        [Sample.name] || [dHex.count] Sample_dHex_count
+			(SELECT [Sample.name] || [dHex.count] sample_dHex, 
+				 SUM(Intensity) NeuAc_Intensity
 	 	 	 FROM glycan_data
-	 	 	 GROUP BY [Sample.name], [dHex.count]) dHex
+	 	 	 WHERE [NeuAc.count]>0
+	 	 	 GROUP BY sample_dHex) NeuAc
 	 		
-		ON 	frame.Sample_dHex_count = dHex.Sample_dHex_count
+		ON 	frame.sample_dHex = NeuAc.sample_dHex
 
 		INNER JOIN
 		
