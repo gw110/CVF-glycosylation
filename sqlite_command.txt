@@ -1,4 +1,5 @@
 ## Creat a databased called 'raw_data.db'
+
 .open raw_data.db
 
 ## Import the glycan data 'Glycan_data.csv', clinical data 'clinical_data.csv'
@@ -11,47 +12,80 @@ DROP TABLE IF EXISTS clinical_data;
 .import clinical_data.csv clinical_data
 
 
-## Generate the data for Figure 5 lower panel
+## Generate the data for Figure 6 upper panel, Non-fucosylation %
 
 .mode csv
 .headers on
-.output Figure_5_lower_panel_data.csv
+.output Figure_6_upper_panel_non_fucosylation_data.csv
 
-SELECT *, 
-	CASE
-		WHEN Outcome IN ('Preterm', 'Term') 
-		THEN 'Pregnant'
-		ELSE 'Non-pregnant'
-	END Pregnancy_status
+SELECT *
 
 FROM
 	(SELECT frame.*, total.Total_Intensity, dHex.dHex_Intensity, clinical_data.*
+	 
 	 FROM 	
-		(SELECT DISTINCT a.[Sample.name], b.[dHex.count], a.[Sample.name] || b.[dHex.count] Sample_dHex_count
-	 	 FROM glycan_data a
-	 	 CROSS JOIN glycan_data b) frame
+			(SELECT DISTINCT a.[Sample.name], b.[dHex.count], a.[Sample.name] || b.[dHex.count] Sample_dHex_count
+	 	 	 FROM glycan_data a
+	 	 	 CROSS JOIN glycan_data b) frame
 	 	
-	 	 INNER JOIN	 
+	 	INNER JOIN	 
 	 	 	 
-		(SELECT [Sample.name], SUM(Intensity) Total_Intensity
-	 	FROM glycan_data
-	 	GROUP BY [Sample.name]) total
+			(SELECT [Sample.name], SUM(Intensity) Total_Intensity
+	 	 	 FROM glycan_data
+	 	 	 GROUP BY [Sample.name]) total
 	 	
-	 	ON frame.[Sample.name]=total.[Sample.name]
+	 	ON 	frame.[Sample.name]=total.[Sample.name]
 
 		LEFT JOIN 
 		
 			(SELECT [Sample.name], [dHex.count], SUM(Intensity) dHex_Intensity, 
-			        [Sample.name] || [dHex.count] Sample_dHex_count
-	 		FROM glycan_data
-	 		GROUP BY [Sample.name], [dHex.count]) dHex
+		 	        [Sample.name] || [dHex.count] Sample_dHex_count
+	 	 	 FROM glycan_data
+	 	 	 GROUP BY [Sample.name], [dHex.count]) dHex
 	 		
-		ON frame.Sample_dHex_count = dHex.Sample_dHex_count
+		ON 	frame.Sample_dHex_count = dHex.Sample_dHex_count
 
 		INNER JOIN
 		
 			clinical_data
 			
-		ON total.[Sample.name]=clinical_data.[VMET.2.number]);
+		ON 	frame.[Sample.name]=clinical_data.[VMET.2.number]);
 	
+
+
+
+## Generate the data for Figure 6 upper panel, Sialylation %
+
+.mode csv
+.headers on
+.output Figure_6_upper_panel_sialylation_data.csv
+
+SELECT *
+
+FROM
+	(SELECT total.[Sample.name], total.Total_Intensity, NeuAc.NeuAc_Intensity, clinical_data.*
+	 
+	 FROM
+	 	 	 
+			(SELECT [Sample.name], SUM(Intensity) Total_Intensity
+	 		 FROM glycan_data
+	 		 WHERE [dHex.count]>1
+	 		 GROUP BY [Sample.name]) total
+	 	
+
+		INNER JOIN 
+		
+			(SELECT [Sample.name], SUM(Intensity) NeuAc_Intensity
+	 		 FROM glycan_data
+	 		 WHERE [NeuAc.count]>0 AND [dHex.count]>1
+	 		 GROUP BY [Sample.name]) NeuAc
+	 		
+		ON 	total.[Sample.name] = NeuAc.[Sample.name]
+		
+		INNER JOIN
+		
+			clinical_data
+			
+		ON 	total.[Sample.name]=clinical_data.[VMET.2.number]);
+
 
