@@ -3,10 +3,10 @@
 ## Load ggplot2 
 library(ggplot2)
 
-############# Figure 8 upper panel #################
+############# Figure 8 lower panel #################
 
 ## load the data
-res=read.csv('Figure_8_upper_panel_data.csv')
+res=read.csv('Figure_8_lower_panel_data.csv')
 
 ## replace NA values with 0
 res[is.na(res)]=0
@@ -46,5 +46,4 @@ ggplot(data=subset.data.frame(res, dHex.count==3 &
   geom_point(position=position_jitter(width = 0.3),shape=2)+
   geom_vline(xintercept=1.5+c(0:7), linetype='dotted')+
   labs(y='Sialylation %')
-
 
