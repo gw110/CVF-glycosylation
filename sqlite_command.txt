@@ -1,28 +1,60 @@
 ## Creat a databased called 'raw_data.db'
 .open raw_data.db
 
-## Import the glycan data 'Glycan data.csv'
+## Import the glycan data 'Glycan_data.csv', clinical data 'clinical_data.csv'
 
 DROP TABLE IF EXISTS glycan_data;
+DROP TABLE IF EXISTS clinical_data;
 
 .mode csv
 .import CVF_data.csv glycan_data
+.import clinical_data.csv clinical_data
 
-## Fucosylation analysis, Figure 4 C
 
-.headers on 
+## Generate the data for Figure 5 upper panel
+
 .mode csv
-.output Figure_4_C_data.csv
-SELECT [Sample.name] Sample, [dHex.count] 'Fuc per glycan', SUM([Intensity]) Intensity
-FROM glycan_data
-GROUP BY [Sample.name], [dHex.count];
+.headers on
+.output Figure_5_upper_panel_data.csv
+
+SELECT *, 
+	CASE
+		WHEN Outcome IN ('Preterm', 'Term') 
+		THEN 'Pregnant'
+		ELSE 'Non-pregnant'
+	END Pregnancy_status
+
+FROM
+	(SELECT frame.*, total.Total_Intensity, dHex.dHex_Intensity, clinical_data.*
+	 FROM 	
+		(SELECT DISTINCT a.[Sample.name], b.[dHex.count], a.[Sample.name] || b.[dHex.count] Sample_dHex_count
+	 	 FROM glycan_data a
+	 	 CROSS JOIN glycan_data b) frame
+	 	
+	 	 INNER JOIN	 
+	 	 	 
+		(SELECT [Sample.name], SUM(Intensity) Total_Intensity
+	 	FROM glycan_data
+	 	GROUP BY [Sample.name]) total
+	 	
+	 	ON frame.[Sample.name]=total.[Sample.name]
+
+		LEFT JOIN 
+		
+			(SELECT [Sample.name], [dHex.count], SUM(Intensity) dHex_Intensity, 
+			        [Sample.name] || [dHex.count] Sample_dHex_count
+	 		FROM glycan_data
+	 		GROUP BY [Sample.name], [dHex.count]) dHex
+	 		
+		ON frame.Sample_dHex_count = dHex.Sample_dHex_count
+
+		INNER JOIN
+		
+			clinical_data
+			
+		ON total.[Sample.name]=clinical_data.[VMET.2.number]);
+	
 
 
-## Sialylation analysis Figure 4 D
-.headers on 
-.mode csv
-.output Figure_4_D_data.csv
-SELECT [Sample.name] Sample, [NeuAc.count] 'NeuAc per glycan', SUM([Intensity]) Intensity
-FROM glycan_data
-GROUP BY [Sample.name], [NeuAc.count];
+
 

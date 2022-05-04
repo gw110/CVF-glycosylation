@@ -3,34 +3,50 @@
 ## Load ggplot2 
 library(ggplot2)
 
-############# Figure 4 C ##########################
+############# Figure 5 upper panel ##########################
 
 ## load the data
-res=read.csv('Figure_4_C_data.csv')
+res=read.csv('Figure_5_upper_panel_data.csv')
 
-## visualize the result
-ggplot(res, aes(Sample, Intensity, 
-                fill=as.character(Fuc.per.glycan)))+
-  geom_bar(stat='identity',position='fill')+
-  labs(y='Relative Intensity')+
-  scale_x_discrete(limits=c('P1','P2','P3','P4','P5','P6',
-                            'NP1','NP2','NP3','NP4'))+
-  scale_fill_manual(values=c('grey67','slateblue',
-                             'lightskyblue','darkorange',
-                             'yellow','magenta1', 'deepskyblue4', 'violet'))
+## replace NA values with 0
+res[is.na(res)]=0
 
+## Non-fucosylation %
+ggplot(data=subset.data.frame(res, dHex.count==0),
+       aes(Pregnancy_status, (dHex_Intensity/Total_Intensity)*100))+
+  geom_boxplot(outlier.alpha = 0)+
+  geom_point(position=position_jitter(width = 0.3),shape=2)+
+  geom_vline(xintercept=1.5+c(0:7), linetype='dotted')+
+  labs(y='Glycan proportion %')
 
-############# Figure 4 D ##########################
+## Mono-fucosylation %
+ggplot(data=subset.data.frame(res, dHex.count==1),
+       aes(Pregnancy_status, (dHex_Intensity/Total_Intensity)*100))+
+  geom_boxplot(outlier.alpha = 0)+
+  geom_point(position=position_jitter(width = 0.3),shape=2)+
+  geom_vline(xintercept=1.5+c(0:7), linetype='dotted')+
+  labs(y='Glycan proportion %')
 
-## load the data
-res=read.csv('Figure_4_D_data.csv')
+## Bi-fucosylation %
+ggplot(data=subset.data.frame(res, dHex.count==2),
+       aes(Pregnancy_status, (dHex_Intensity/Total_Intensity)*100))+
+  geom_boxplot(outlier.alpha = 0)+
+  geom_point(position=position_jitter(width = 0.3),shape=2)+
+  geom_vline(xintercept=1.5+c(0:7), linetype='dotted')+
+  labs(y='Glycan proportion %')
 
-## visualize the result
-ggplot(res, aes(Sample, Intensity, 
-                fill=as.character(NeuAc.per.glycan)))+
-  geom_bar(stat='identity',position='fill')+
-  labs(y='Relative Intensity')+
-  scale_x_discrete(limits=c('P1','P2','P3','P4','P5','P6',
-                            'NP1','NP2','NP3','NP4'))+
-  scale_fill_manual(values=c('darkorange','yellow','magenta1',
-                             'deepskyblue4'))
+## Tri-fucosylation %
+ggplot(data=subset.data.frame(res, dHex.count==3),
+       aes(Pregnancy_status, (dHex_Intensity/Total_Intensity)*100))+
+  geom_boxplot(outlier.alpha = 0)+
+  geom_point(position=position_jitter(width = 0.3),shape=2)+
+  geom_vline(xintercept=1.5+c(0:7), linetype='dotted')+
+  labs(y='Glycan proportion %')
+
+## Tetra-fucosylation %
+ggplot(data=subset.data.frame(res, dHex.count==4),
+       aes(Pregnancy_status, (dHex_Intensity/Total_Intensity)*100))+
+  geom_boxplot(outlier.alpha = 0)+
+  geom_point(position=position_jitter(width = 0.3),shape=2)+
+  geom_vline(xintercept=1.5+c(0:7), linetype='dotted')+
+  labs(y='Glycan proportion %')
