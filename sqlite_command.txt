@@ -12,11 +12,11 @@ DROP TABLE IF EXISTS clinical_data;
 .import clinical_data.csv clinical_data
 
 
-## Generate the data for Figure 6 lower panel, Non-fucosylation %
+## Generate the data for Figure 7 upper panel, Non-fucosylation %
 
 .mode csv
 .headers on
-.output Figure_6_lower_panel_non_fucosylation_data.csv
+.output Figure_7_upper_panel_data.csv
 
 SELECT *
 
@@ -50,42 +50,5 @@ FROM
 			clinical_data
 			
 		ON 	frame.[Sample.name]=clinical_data.[VMET.2.number]);
-	
-
-
-
-## Generate the data for Figure 6 lower panel, Sialylation %
-
-.mode csv
-.headers on
-.output Figure_6_lower_panel_sialylation_data.csv
-
-SELECT *
-
-FROM
-	(SELECT total.[Sample.name], total.Total_Intensity, NeuAc.NeuAc_Intensity, clinical_data.*
-	 
-	 FROM
-	 	 	 
-			(SELECT [Sample.name], SUM(Intensity) Total_Intensity
-	 		 FROM glycan_data
-	 		 WHERE [dHex.count]>1
-	 		 GROUP BY [Sample.name]) total
-	 	
-
-		INNER JOIN 
 		
-			(SELECT [Sample.name], SUM(Intensity) NeuAc_Intensity
-	 		 FROM glycan_data
-	 		 WHERE [NeuAc.count]>0 AND [dHex.count]>1
-	 		 GROUP BY [Sample.name]) NeuAc
-	 		
-		ON 	total.[Sample.name] = NeuAc.[Sample.name]
 		
-		INNER JOIN
-		
-			clinical_data
-			
-		ON 	total.[Sample.name]=clinical_data.[VMET.2.number]);
-
-
