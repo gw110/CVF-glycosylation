@@ -12,11 +12,11 @@ DROP TABLE IF EXISTS clinical_data;
 .import clinical_data.csv clinical_data
 
 
-## Generate the data for Figure 9 A
+## Generate the data for Figure 10 A
 
 .mode csv
 .headers on
-.output Figure_9_A.csv
+.output Figure_10_A.csv
 
 SELECT *
 
@@ -46,11 +46,11 @@ FROM  (
 
 
 
-## Generate the data for Figure 9 B
+## Generate the data for Figure 10 B
 
 .mode csv
 .headers on
-.output Figure_9_B.csv
+.output Figure_10_B.csv
 
 SELECT *
 
@@ -80,11 +80,11 @@ FROM  (
 
 
 
-## Generate the data for Figure 9 C
+## Generate the data for Figure 10 C
 
 .mode csv
 .headers on
-.output Figure_9_C.csv
+.output Figure_10_C.csv
 
 SELECT *
 
@@ -115,11 +115,11 @@ FROM  (
 	 
 	 
 
-## Generate the data for Figure 9 D
+## Generate the data for Figure 10 D
 
 .mode csv
 .headers on
-.output Figure_9_D.csv
+.output Figure_10_D.csv
 
 SELECT *
 

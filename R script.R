@@ -3,11 +3,10 @@
 ## Load ggplot2 
 library(ggplot2)
 
-
-############# Figure 9 A ####################################
+############# Figure 10 A ####################################
 
 ## import the data
-res=read.csv('Figure_9_A.csv')
+res=read.csv('Figure_10_A.csv')
 
 ## add relative intensity column
 res['relative.intensity']=res$dHex_Intensity/res$total_Intensity
@@ -38,10 +37,10 @@ ggplot(res, aes(relative.intensity*100, log2(as.numeric(IL.18))))+
   geom_smooth(method=lm)+
   theme( plot.subtitle = element_text(hjust = 0.5, face = 'italic'))
 
-############# Figure 9 B ####################################
+############# Figure 10 B ####################################
 
 ## import the data
-res=read.csv('Figure_9_B.csv')
+res=read.csv('Figure_10_B.csv')
 
 ## add relative intensity column
 res['relative.intensity']=res$dHex_Intensity/res$total_Intensity
@@ -72,10 +71,10 @@ ggplot(res, aes(relative.intensity*100, log2(as.numeric(IL.18))))+
   geom_smooth(method=lm)+
   theme( plot.subtitle = element_text(hjust = 0.5, face = 'italic'))
 
-############# Figure 9 C ####################################
+############# Figure 10 C ####################################
 
 ## import the data
-res=read.csv('Figure_9_C.csv')
+res=read.csv('Figure_10_C.csv')
 
 ## add relative intensity column
 res['relative.intensity']=res$dHex_Intensity/res$total_Intensity
@@ -106,10 +105,10 @@ ggplot(res, aes(relative.intensity*100, log2(as.numeric(IL.18))))+
   geom_smooth(method=lm)+
   theme( plot.subtitle = element_text(hjust = 0.5, face = 'italic'))
 
-############# Figure 9 D ####################################
+############# Figure 10 D ####################################
 
 ## import the data
-res=read.csv('Figure_9_D.csv')
+res=read.csv('Figure_10_D.csv')
 
 ## add relative intensity column
 res['relative.intensity']=res$dHex_Intensity/res$total_Intensity
