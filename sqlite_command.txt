@@ -12,137 +12,46 @@ DROP TABLE IF EXISTS clinical_data;
 .import clinical_data.csv clinical_data
 
 
-## Generate the data for Figure 10 A
+## Generate the data for Supplementary_Figure_4
 
 .mode csv
 .headers on
-.output Figure_10_A.csv
+.output Supplementary_Figure_4_data.csv
 
 SELECT *
 
-FROM  (
-	 (SELECT [Sample.name], SUM(Intensity) dHex_Intensity
-	  FROM glycan_data
-	  WHERE [dHex.count]=0
-	  GROUP BY [Sample.name]) dHex_total
-	 	
-
-	  INNER JOIN 
-		
-	  (SELECT [Sample.name], SUM(Intensity) total_Intensity
-	   FROM glycan_data
-	   GROUP BY [Sample.name]) total
-	 		
-	  ON dHex_total.[Sample.name] = total.[Sample.name]
-
-	  
-	  INNER JOIN
-		
-	  clinical_data
-			
-	  ON dHex_total.[Sample.name]=clinical_data.[VMET.2.number]
-	 );
-
-
-
-
-## Generate the data for Figure 10 B
-
-.mode csv
-.headers on
-.output Figure_10_B.csv
-
-SELECT *
-
-FROM  (
-	 (SELECT [Sample.name], SUM(Intensity) dHex_Intensity
-	  FROM glycan_data
-	  WHERE [dHex.count]=1
-	  GROUP BY [Sample.name]) dHex_total
-	 	
-
-	  INNER JOIN 
-		
-	  (SELECT [Sample.name], SUM(Intensity) total_Intensity
-	   FROM glycan_data
-	   GROUP BY [Sample.name]) total
-	 		
-	  ON dHex_total.[Sample.name] = total.[Sample.name]
-
-	  
-	  INNER JOIN
-		
-	  clinical_data
-			
-	  ON dHex_total.[Sample.name]=clinical_data.[VMET.2.number]
-	 );
-		
-
-
-
-## Generate the data for Figure 10 C
-
-.mode csv
-.headers on
-.output Figure_10_C.csv
-
-SELECT *
-
-FROM  (
-	 (SELECT [Sample.name], SUM(Intensity) dHex_Intensity
-	  FROM glycan_data
-	  WHERE [dHex.count]>1
-	  GROUP BY [Sample.name]) dHex_total
-	 	
-
-	  INNER JOIN 
-		
-	  (SELECT [Sample.name], SUM(Intensity) total_Intensity
-	   FROM glycan_data
-	   GROUP BY [Sample.name]) total
-	 		
-	  ON dHex_total.[Sample.name] = total.[Sample.name]
-
-	  
-	  INNER JOIN
-		
-	  clinical_data
-			
-	  ON dHex_total.[Sample.name]=clinical_data.[VMET.2.number]
-	 );	
+FROM
+	(SELECT frame.*, dHex_total.Total_Intensity, NeuAc.NeuAc_Intensity, clinical_data.*
 	 
-	 
-	 
-	 
-
-## Generate the data for Figure 10 D
-
-.mode csv
-.headers on
-.output Figure_10_D.csv
-
-SELECT *
-
-FROM  (
-	 (SELECT [Sample.name], SUM(Intensity) dHex_Intensity
-	  FROM glycan_data
-	  WHERE [dHex.count]>2
-	  GROUP BY [Sample.name]) dHex_total
+	 FROM 	
+			(SELECT DISTINCT 
+			      a.[Sample.name], b.[dHex.count],
+			      a.[Sample.name] || b.[dHex.count] sample_dHex
+	 	 	 FROM glycan_data a
+	 	 	 CROSS JOIN glycan_data b) frame
 	 	
+	 	LEFT JOIN	 
+	 	 	 
+			(SELECT [Sample.name] ||[dHex.count] sample_dHex, SUM(Intensity) Total_Intensity
+	 	 	 FROM glycan_data
+	 	 	 GROUP BY sample_dHex) dHex_total
+	 	
+	 	ON 	frame.sample_dHex=dHex_total.sample_dHex
 
-	  INNER JOIN 
+		LEFT JOIN 
 		
-	  (SELECT [Sample.name], SUM(Intensity) total_Intensity
-	   FROM glycan_data
-	   WHERE [dHex.count]>1
-	   GROUP BY [Sample.name]) total
+			(SELECT [Sample.name] || [dHex.count] sample_dHex, 
+				 SUM(Intensity) NeuAc_Intensity
+	 	 	 FROM glycan_data
+	 	 	 WHERE [NeuAc.count]>0
+	 	 	 GROUP BY sample_dHex) NeuAc
 	 		
-	  ON dHex_total.[Sample.name] = total.[Sample.name]
+		ON 	frame.sample_dHex = NeuAc.sample_dHex
 
-	  
-	  INNER JOIN
+		INNER JOIN
 		
-	  clinical_data
+			clinical_data
 			
-	  ON dHex_total.[Sample.name]=clinical_data.[VMET.2.number]
-	 );
+		ON 	frame.[Sample.name]=clinical_data.[VMET.2.number]);
+		
+		
