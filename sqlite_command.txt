@@ -12,11 +12,11 @@ DROP TABLE IF EXISTS clinical_data;
 .import clinical_data.csv clinical_data
 
 
-## Generate the data for Supplementary_Figure_4
+## Generate the data for Supplementary_Figure_5
 
 .mode csv
 .headers on
-.output Supplementary_Figure_4_data.csv
+.output Supplementary_Figure_5_data.csv
 
 SELECT *
 

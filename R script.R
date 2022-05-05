@@ -3,10 +3,10 @@
 ## Load ggplot2 
 library(ggplot2)
 
-############# Supplementary Figure 4 A #################
+############# Supplementary Figure 5 A #################
 
 ## load the data
-res=read.csv('Supplementary_Figure_4_data.csv')
+res=read.csv('Supplementary_Figure_5_data.csv')
 res=subset.data.frame(res, Total_Intensity>0)
 res['relative.intensity']=res$NeuAc_Intensity/res$Total_Intensity
 
@@ -71,10 +71,10 @@ ggplot(res, aes(relative.intensity*100, log2(as.numeric(as.vector(IL.8)))))+
        subtitle = paste('coefficient = ',coefficient,', ', 'p = ',p,sep=''))+
   geom_smooth(method=lm)+
   theme( plot.subtitle = element_text(hjust = 0.5, face = 'italic'))
-############# Supplementary Figure 4 B #################
+############# Supplementary Figure 5 B #################
 
 ## load the data
-res=read.csv('Supplementary_Figure_4_data.csv')
+res=read.csv('Supplementary_Figure_5_data.csv')
 res=subset.data.frame(res, Total_Intensity>0)
 res['relative.intensity']=res$NeuAc_Intensity/res$Total_Intensity
 
@@ -139,10 +139,10 @@ ggplot(res, aes(relative.intensity*100, log2(as.numeric(as.vector(IL.8)))))+
        subtitle = paste('coefficient = ',coefficient,', ', 'p = ',p,sep=''))+
   geom_smooth(method=lm)+
   theme( plot.subtitle = element_text(hjust = 0.5, face = 'italic'))
-############# Supplementary Figure 4 C #################
+############# Supplementary Figure 5 C #################
 
 ## load the data
-res=read.csv('Supplementary_Figure_4_data.csv')
+res=read.csv('Supplementary_Figure_5_data.csv')
 res=subset.data.frame(res, Total_Intensity>0)
 res['relative.intensity']=res$NeuAc_Intensity/res$Total_Intensity
 
@@ -207,10 +207,10 @@ ggplot(res, aes(relative.intensity*100, log2(as.numeric(as.vector(IL.8)))))+
        subtitle = paste('coefficient = ',coefficient,', ', 'p = ',p,sep=''))+
   geom_smooth(method=lm)+
   theme( plot.subtitle = element_text(hjust = 0.5, face = 'italic'))
-############# Supplementary Figure 4 D #################
+############# Supplementary Figure 5 D #################
 
 ## load the data
-res=read.csv('Supplementary_Figure_4_data.csv')
+res=read.csv('Supplementary_Figure_5_data.csv')
 res=subset.data.frame(res, Total_Intensity>0)
 res['relative.intensity']=res$NeuAc_Intensity/res$Total_Intensity
 
@@ -275,10 +275,10 @@ ggplot(res, aes(relative.intensity*100, log2(as.numeric(as.vector(IL.8)))))+
        subtitle = paste('coefficient = ',coefficient,', ', 'p = ',p,sep=''))+
   geom_smooth(method=lm)+
   theme( plot.subtitle = element_text(hjust = 0.5, face = 'italic'))
-############# Supplementary Figure 4 E #################
+############# Supplementary Figure 5 E #################
 
 ## load the data
-res=read.csv('Supplementary_Figure_4_data.csv')
+res=read.csv('Supplementary_Figure_5_data.csv')
 res=subset.data.frame(res, Total_Intensity>0)
 res['relative.intensity']=res$NeuAc_Intensity/res$Total_Intensity
 
