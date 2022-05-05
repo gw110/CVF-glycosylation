@@ -3,10 +3,10 @@
 ## Load ggplot2 
 library(ggplot2)
 
-############# Supplementary Figure 8 A ####################################
+############# Supplementary Figure 9 A ####################################
 
 ## import the data
-res=read.csv('Supplementary_Figure_8_A.csv')
+res=read.csv('Supplementary_Figure_9_A.csv')
 
 ## total intensity should be above 0
 res=subset.data.frame(res, total_Intensity>0)
@@ -40,10 +40,10 @@ ggplot(res, aes(relative.intensity*100, log2(as.numeric(as.vector(IL.8)))))+
   geom_smooth(method=lm)+
   theme( plot.subtitle = element_text(hjust = 0.5, face = 'italic'))
 
-############# Supplementary Figure 8 B ####################################
+############# Supplementary Figure 9 B ####################################
 
 ## import the data
-res=read.csv('Supplementary_Figure_8_B.csv')
+res=read.csv('Supplementary_Figure_9_B.csv')
 
 ## total intensity should be above 0
 res=subset.data.frame(res, total_Intensity>0)
@@ -77,10 +77,10 @@ ggplot(res, aes(relative.intensity*100, log2(as.numeric(as.vector(IL.8)))))+
   geom_smooth(method=lm)+
   theme( plot.subtitle = element_text(hjust = 0.5, face = 'italic'))
 
-############# Supplementary Figure 8 C ####################################
+############# Supplementary Figure 9 C ####################################
 
 ## import the data
-res=read.csv('Supplementary_Figure_8_C.csv')
+res=read.csv('Supplementary_Figure_9_C.csv')
 
 ## total intensity should be above 0
 res=subset.data.frame(res, total_Intensity>0)
@@ -96,7 +96,7 @@ p=temp[[3]]
 p=round(p, digits = 4)
 ggplot(res, aes(relative.intensity*100, log2(as.numeric(as.vector(IL.6)))))+
   geom_point()+
-  labs(x='Glycan proportion %', y='log2(IL-6)',
+  labs(x='Glycan proportion %', y='log2(IL-1 beta)',
        subtitle = paste('coefficient = ',coefficient,', ', 'p = ',p,sep=''))+
   geom_smooth(method=lm)+
   theme( plot.subtitle = element_text(hjust = 0.5, face = 'italic'))
@@ -109,15 +109,15 @@ p=temp[[3]]
 p=round(p, digits = 4)
 ggplot(res, aes(relative.intensity*100, log2(as.numeric(as.vector(IL.8)))))+
   geom_point()+
-  labs(x='Glycan proportion %', y='log2(IL-8)',
+  labs(x='Glycan proportion %', y='log2(IL-1 beta)',
        subtitle = paste('coefficient = ',coefficient,', ', 'p = ',p,sep=''))+
   geom_smooth(method=lm)+
   theme( plot.subtitle = element_text(hjust = 0.5, face = 'italic'))
 
-############# Supplementary Figure 8 D ####################################
+############# Supplementary Figure 9 D ####################################
 
 ## import the data
-res=read.csv('Supplementary_Figure_8_D.csv')
+res=read.csv('Supplementary_Figure_9_D.csv')
 
 ## total intensity should be above 0
 res=subset.data.frame(res, total_Intensity>0)

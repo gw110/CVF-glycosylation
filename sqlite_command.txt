@@ -12,11 +12,11 @@ DROP TABLE IF EXISTS clinical_data;
 .import clinical_data.csv clinical_data
 
 
-## Generate the data for Supplementary Figure 8 A
+## Generate the data for Supplementary Figure 9 A
 
 .mode csv
 .headers on
-.output Supplementary_Figure_8_A.csv
+.output Supplementary_Figure_9_A.csv
 
 SELECT *
 
@@ -46,11 +46,11 @@ FROM  (
 
 
 
-## Generate the data for Supplementary Figure 8 B
+## Generate the data for Supplementary Figure 9 B
 
 .mode csv
 .headers on
-.output Supplementary_Figure_8_B.csv
+.output Supplementary_Figure_9_B.csv
 
 SELECT *
 
@@ -80,11 +80,11 @@ FROM  (
 
 
 
-## Generate the data for Supplementary Figure 8 C
+## Generate the data for Supplementary Figure 9 C
 
 .mode csv
 .headers on
-.output Supplementary_Figure_8_C.csv
+.output Supplementary_Figure_9_C.csv
 
 SELECT *
 
@@ -115,18 +115,18 @@ FROM  (
 	 
 	 
 
-## Generate the data for Supplementary Figure 8 D
+## Generate the data for Supplementary Figure 9 D
 
 .mode csv
 .headers on
-.output Supplementary_Figure_8_D.csv
+.output Supplementary_Figure_9_D.csv
 
 SELECT *
 
 FROM  (
 	 (SELECT [Sample.name], SUM(Intensity) dHex_Intensity
 	  FROM glycan_data
-	  WHERE [dHex.count]>2
+	  WHERE [dHex.count]>3
 	  GROUP BY [Sample.name]) dHex_total
 	 	
 
