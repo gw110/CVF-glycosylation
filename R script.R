@@ -3,10 +3,10 @@
 ## Load ggplot2 
 library(ggplot2)
 
-############# Supplementary Figure 6 A #################
+############# Supplementary Figure 7 A #################
 
 ## load the data
-res=read.csv('Supplementary_Figure_6_A_data.csv')
+res=read.csv('Supplementary_Figure_7_A_data.csv')
 res['relative.intensity']=res$NeuAc_Intensity/res$total_Intensity
 
 ## replace NA values with 0
@@ -68,10 +68,10 @@ ggplot(res, aes(relative.intensity*100, log2(as.numeric(as.vector(IL.8)))))+
   geom_smooth(method=lm)+
   theme( plot.subtitle = element_text(hjust = 0.5, face = 'italic'))
 
-############# Supplementary Figure 6 B #################
+############# Supplementary Figure 7 B #################
 
 ## load the data
-res=read.csv('Supplementary_Figure_6_B_data.csv')
+res=read.csv('Supplementary_Figure_7_B_data.csv')
 res['relative.intensity']=res$NeuAc_Intensity/res$total_Intensity
 
 ## replace NA values with 0
@@ -133,10 +133,10 @@ ggplot(res, aes(relative.intensity*100, log2(as.numeric(as.vector(IL.8)))))+
   geom_smooth(method=lm)+
   theme( plot.subtitle = element_text(hjust = 0.5, face = 'italic'))
 
-############# Supplementary Figure 6 C #################
+############# Supplementary Figure 7 C #################
 
 ## load the data
-res=read.csv('Supplementary_Figure_6_C_data.csv')
+res=read.csv('Supplementary_Figure_7_C_data.csv')
 res['relative.intensity']=res$NeuAc_Intensity/res$total_Intensity
 
 ## replace NA values with 0

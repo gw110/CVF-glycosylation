@@ -12,11 +12,11 @@ DROP TABLE IF EXISTS clinical_data;
 .import clinical_data.csv clinical_data
 
 
-## Generate the data for Supplementary_Figure_6_A
+## Generate the data for Supplementary_Figure_7_A
 
 .mode csv
 .headers on
-.output Supplementary_Figure_6_A_data.csv
+.output Supplementary_Figure_7_A_data.csv
 
 SELECT *
 
@@ -47,11 +47,11 @@ FROM  (
 		
 	
 	
-## Generate the data for Supplementary_Figure_6_B
+## Generate the data for Supplementary_Figure_7_B
 
 .mode csv
 .headers on
-.output Supplementary_Figure_6_B_data.csv
+.output Supplementary_Figure_7_B_data.csv
 
 SELECT *
 
@@ -81,11 +81,11 @@ FROM  (
 	 
 
 
-## Generate the data for Supplementary_Figure_6_C
+## Generate the data for Supplementary_Figure_7_C
 
 .mode csv
 .headers on
-.output Supplementary_Figure_6_C_data.csv
+.output Supplementary_Figure_7_C_data.csv
 
 SELECT *
 
@@ -94,14 +94,14 @@ FROM  (
 	 	
 	 (SELECT [Sample.name], SUM(Intensity) total_Intensity
 	  FROM glycan_data
-	  WHERE [dHex.count]>2
+	  WHERE [dHex.count]>3
 	  GROUP BY [Sample.name]) total
 	  
 	  LEFT JOIN 
 	 
 	 (SELECT [Sample.name], SUM(Intensity) NeuAc_Intensity
 	  FROM glycan_data
-	  WHERE [NeuAc.count]>0 AND [dHex.count]>2
+	  WHERE [NeuAc.count]>0 AND [dHex.count]>3
 	  GROUP BY [Sample.name]) NeuAc_total
 	
 	 		
